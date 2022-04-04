@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.project.springmall.entity.user;
+package com.project.springmall.user.domain;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -15,27 +15,21 @@ public class User {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Lob
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Lob
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Lob
     @Column(name = "username")
     private String username;
 
-    @Lob
     @Column(name = "nickname")
     private String nickname;
 
-    @Lob
     @Column(name = "sns_type")
     private String snsType;
 
-    @Lob
     @Column(name = "sns_id")
     private String snsId;
 
