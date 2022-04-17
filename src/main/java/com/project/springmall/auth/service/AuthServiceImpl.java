@@ -11,9 +11,15 @@ import com.project.springmall.exception.api.ApiException;
 import com.project.springmall.user.service.UserDTO;
 import com.project.springmall.user.domain.User;
 import com.project.springmall.user.domain.UserRepository;
+import com.project.springmall.utils.JwtTokenProvider;
+import com.project.springmall.utils.UserAuthentication;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -38,6 +44,28 @@ public class AuthServiceImpl extends BaseService implements AuthService {
         // TODO
 
         return user;
+    }
+
+    @Override
+    public UserDTO.UserWithTokenRes signIn(UserDTO.LocalSignUpReq localSignUpReq) {
+        Argon2PasswordEncoder encoder = new Argon2PasswordEncoder();
+
+        List<User> users = this.userRepository.findByEmail(localSignUpReq.getEmail());
+        User user = users.stream().findFirst().orElse(null);
+        if (user == null) {
+            throw new ApiException(ExceptionEnum.SIGN_IN_USER_NOT_FOUND);
+        }
+
+        if (!encoder.matches(localSignUpReq.getPassword(), user.getPassword())) {
+            throw new ApiException(ExceptionEnum.SIGN_IN_MISS_PASSWORD);
+        }
+
+        // make token
+        Authentication authentication = new UserAuthentication(user.getId().toString(), null, null);
+        String token = JwtTokenProvider.generateToken(authentication);
+        return UserDTO.UserWithTokenRes.builder()
+                .token(token)
+                .build();
     }
 
     @Override

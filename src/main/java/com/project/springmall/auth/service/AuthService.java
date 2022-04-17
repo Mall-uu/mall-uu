@@ -12,5 +12,7 @@ public interface AuthService {
 
     User register(UserDTO.LocalSignUpReq localSignUpReq);
 
+    UserDTO.UserWithTokenRes signIn(UserDTO.LocalSignUpReq localSignUpReq);
+
     boolean existUserByEmail(String email);
 }
