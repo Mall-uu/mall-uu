@@ -61,4 +61,15 @@ public class UserDTO extends BaseDTO implements Serializable {
         }
     }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class UserWithTokenRes {
+        private String token;
+        @Builder
+        public UserWithTokenRes(String token) {
+            this.token = token;
+        }
+
+    }
+
 }
