@@ -63,6 +63,16 @@ public class UserDTO extends BaseDTO implements Serializable {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class LocalEmailAuthReq {
+        private String token;
+        @Builder
+        public LocalEmailAuthReq(String token) {
+            this.token = token;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class UserWithTokenRes {
         private String token;
         @Builder
