@@ -32,6 +32,11 @@ public class AuthController extends BaseApiController {
         return this.authService.signIn(localSignUpReq);
     }
 
+    @PostMapping("/auth/email-token")
+    public boolean authEmail(@RequestBody UserDTO.LocalEmailAuthReq localEmailAuthReq) {
+        return this.authService.verifyEmail(localEmailAuthReq);
+    }
+
     @GetMapping("/test")
     public boolean test(@RequestBody UserDTO.LocalSignUpReq localSignUpReq) {
         return true;

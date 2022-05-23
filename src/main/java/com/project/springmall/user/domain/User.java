@@ -24,7 +24,6 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
-
     @Builder
     public User(String password, String email, String username, String nickname, String snsType, String snsId) {
         this.password = password;
@@ -79,6 +78,9 @@ public class User {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
     @PrePersist
     public void prePersist() {
         this.isActive = this.isActive != null && this.isActive;

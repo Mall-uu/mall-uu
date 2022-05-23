@@ -14,5 +14,7 @@ public interface AuthService {
 
     UserDTO.UserWithTokenRes signIn(UserDTO.LocalSignUpReq localSignUpReq);
 
+    boolean verifyEmail (UserDTO.LocalEmailAuthReq localEmailAuthReq);
+
     boolean existUserByEmail(String email);
 }
